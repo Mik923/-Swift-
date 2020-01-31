@@ -27,7 +27,7 @@ enum WindowPosition {
     case open
     case close
 }
-      
+
 enum LampPosition {
     case on
     case off
@@ -73,23 +73,36 @@ struct Auto {
     var windowPosition: WindowPosition
     var lampPosition: LampPosition
     
+    init(status: Class, carModel: CarModel, bodyType: BodyType, color: Color, yearOfManufacture: Int) {
+        self.status = status
+        self.carModel = carModel
+        self.bodyType = bodyType
+        self.color = color
+        self.yearOfManufacture = yearOfManufacture
+        trunkVolume = 500
+        engineState = .off
+        windowPosition = .close
+        lampPosition = .off
+        trunkCondition = 0
+    }
+    
     // 4. Добавить в структуры метод с одним аргументом типа перечисления, который будет менять свойства структуры в зависимости от действия.
     mutating func action (_ action: Actions){
         switch action {
         case .changeEngineState:
-              if engineState == .off {
+            if engineState == .off {
                 engineState = .on
                 print("Двигатель включен")
-                  } else {
+            } else {
                 engineState = .off
                 print("Двигатель отключен")
-                  }
+            }
         case .changeLampPosition:
             if lampPosition == .off {
-               lampPosition = .on
+                lampPosition = .on
                 print("Фары включены")
             } else {
-               lampPosition = .off
+                lampPosition = .off
                 print("Фары отключены")
             }
         case .changeWindowPosition:
@@ -116,7 +129,7 @@ struct Auto {
             }
         }
     }
-// 6. Вывести значения свойств экземпляров в консоль.
+    // 6. Вывести значения свойств экземпляров в консоль.
     func description() {
         print("""
             \n
@@ -131,19 +144,6 @@ struct Auto {
             trunkCondition: \(trunkCondition)
             yearOfManufacture: \(yearOfManufacture)\n
             """)
-    }
-    
-    init(status: Class, carModel: CarModel, bodyType: BodyType, color: Color, yearOfManufacture: Int) {
-        self.status = status
-        self.carModel = carModel
-        self.bodyType = bodyType
-        self.color = color
-        self.yearOfManufacture = yearOfManufacture
-        trunkVolume = 500
-        engineState = .off
-        windowPosition = .close
-        lampPosition = .off
-        trunkCondition = 0
     }
 }
 
@@ -185,48 +185,61 @@ struct Truck {
     var windowPosition: WindowPosition
     var lampPosition: LampPosition
     
+    init(maxWeight: MaxWeight, typeOfTruck: TypeOfTruck, carModel: CarModel, color: Color, yearOfManufacture: Int) {
+        self.maxWeight = maxWeight
+        self.typeOfTruck = typeOfTruck
+        self.carModel = carModel
+        self.color = color
+        self.yearOfManufacture = yearOfManufacture
+        trunkVolume = 100
+        engineState = .off
+        windowPosition = .close
+        lampPosition = .off
+        trunkCondition = 0
+    }
+    
     mutating func action (_ action: Actions){
-         switch action {
-         case .changeEngineState:
-               if engineState == .off {
-                 engineState = .on
-                 print("Двигатель включен")
-                   } else {
-                 engineState = .off
-                 print("Двигатель отключен")
-                   }
-         case .changeLampPosition:
-             if lampPosition == .off {
+        switch action {
+        case .changeEngineState:
+            if engineState == .off {
+                engineState = .on
+                print("Двигатель включен")
+            } else {
+                engineState = .off
+                print("Двигатель отключен")
+            }
+        case .changeLampPosition:
+            if lampPosition == .off {
                 lampPosition = .on
-                 print("Фары включены")
-             } else {
+                print("Фары включены")
+            } else {
                 lampPosition = .off
-                 print("Фары отключены")
-             }
-         case .changeWindowPosition:
-             if windowPosition == .close {
-                 windowPosition = .open
-                 print("Окна открыты")
-             } else {
-                 windowPosition = .close
-                 print("Окна закрыты")
-             }
-         case .loadTrunk(let value):
-             if trunkVolume < value {
-                 print("Ваш багаж не влезает")
-             } else {
-                 trunkCondition += value
-                 print("Осталось места в багажнике: \(trunkVolume - trunkCondition) м^3")
-             }
-         case .unloadTrunk(let value):
-             if trunkCondition - value >= 0 {
-                 trunkCondition -= value
-                 print("Осталось места в багажнике: \(trunkVolume - trunkCondition) м^3")
-             } else {
-                 print("Вы не можете выгрузить больше, чем есть")
-             }
-         }
-     }
+                print("Фары отключены")
+            }
+        case .changeWindowPosition:
+            if windowPosition == .close {
+                windowPosition = .open
+                print("Окна открыты")
+            } else {
+                windowPosition = .close
+                print("Окна закрыты")
+            }
+        case .loadTrunk(let value):
+            if trunkVolume < value {
+                print("Ваш багаж не влезает")
+            } else {
+                trunkCondition += value
+                print("Осталось места в багажнике: \(trunkVolume - trunkCondition) м^3")
+            }
+        case .unloadTrunk(let value):
+            if trunkCondition - value >= 0 {
+                trunkCondition -= value
+                print("Осталось места в багажнике: \(trunkVolume - trunkCondition) м^3")
+            } else {
+                print("Вы не можете выгрузить больше, чем есть")
+            }
+        }
+    }
     
     func description() {
         print("""
@@ -242,19 +255,6 @@ struct Truck {
             trunkCondition: \(trunkCondition)
             yearOfManufacture: \(yearOfManufacture)\n
             """)
-       }
-    
-    init(maxWeight: MaxWeight, typeOfTruck: TypeOfTruck, carModel: CarModel, color: Color, yearOfManufacture: Int) {
-        self.maxWeight = maxWeight
-        self.typeOfTruck = typeOfTruck
-        self.carModel = carModel
-        self.color = color
-        self.yearOfManufacture = yearOfManufacture
-        trunkVolume = 100
-        engineState = .off
-        windowPosition = .close
-        lampPosition = .off
-        trunkCondition = 0
     }
 }
 
