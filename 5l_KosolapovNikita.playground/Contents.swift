@@ -39,6 +39,7 @@ protocol Car {
 // 2. Создать расширения для протокола «Car» и реализовать в них методы конкретных действий с автомобилем: открыть/закрыть окно, запустить/заглушить двигатель и т.д. (по одному методу на действие, реализовывать следует только те действия, реализация которых общая для всех автомобилей).
 
 extension Car {
+    
     mutating func changeEngineState() {
         if engineState == .stop {
             engineState = .start
@@ -48,9 +49,7 @@ extension Car {
             print("Двигатель отключен")
         }
     }
-}
-
-extension Car {
+    
     mutating func changeLampPosition() {
         if lampPosition == .off {
             lampPosition = .on
@@ -60,9 +59,7 @@ extension Car {
             print("Фары отключены")
         }
     }
-}
-
-extension Car {
+    
     mutating func changeWindowPosition() {
         if windowPosition == .close {
             windowPosition = .open
